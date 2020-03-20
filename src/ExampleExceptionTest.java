@@ -1,8 +1,8 @@
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.fail;
-
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import static org.testng.Assert.*;
 
 public class ExampleExceptionTest {
 
@@ -15,8 +15,9 @@ public class ExampleExceptionTest {
   public static Object[][] data() {
     return new Object[][]{
         {2, 2, 4},
-        {2, 3, 6}
-        // TODO add 2 more test data here
+        {2, 3, 6},
+            {5,5,25},
+            {15,2,30}
     };
   }
 
@@ -29,19 +30,20 @@ public class ExampleExceptionTest {
   public static Object[][] negativeData() {
     return new Object[][]{
         {-2, 2},
-        {2, -2}
-        // TODO add 2 more test data here
+        {2, -2},
+            {3,-5},
+            {-2,-2}
     };
   }
 
   @Test(dataProvider = "data")
   public void testRectangleArea(int a, int b, int c) {
-    // TODO put your code here
+    assertEquals(ExampleException.rectangleArea(a,b), c,"Area is wrong");
   }
 
 
   @Test(dataProvider = "negativeData")
   public void testRectangleAreaNegative(int a, int b) {
-    // TODO put your code here
+    assertThrows(IllegalArgumentException.class,() -> ExampleException.rectangleArea(a,b));
   }
 }
